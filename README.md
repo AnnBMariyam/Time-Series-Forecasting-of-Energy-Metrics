@@ -1,1 +1,1 @@
-# Time-Series-Forecasting-of-Energy-Metrics
+# Time series forecasting with RNNs
