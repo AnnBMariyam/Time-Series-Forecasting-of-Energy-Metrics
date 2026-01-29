@@ -1,5 +1,5 @@
 # Time series forecasting with RNNs
- Project Overview
+# Project Overview
 
 This project focuses on time-series forecasting of energy-related metrics using the ETTh1 dataset, which contains multivariate electricity transformer temperature measurements collected at regular intervals.
 
