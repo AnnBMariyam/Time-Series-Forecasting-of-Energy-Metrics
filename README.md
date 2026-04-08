@@ -1,122 +1,156 @@
-# Time series forecasting with RNNs
-## Project Overview
+# ⚡ Time-Series Energy Forecasting with Deep Learning (RNNs)
 
-This project focuses on time-series forecasting of energy-related metrics using the ETTh1 dataset, which contains multivariate electricity transformer temperature measurements collected at regular intervals.
+![Python](https://img.shields.io/badge/Python-3.8+-blue?style=flat-square&logo=python)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-Deep%20Learning-red?style=flat-square&logo=tensorflow)
+![RNN](https://img.shields.io/badge/Models-LSTM%20%7C%20GRU%20%7C%20Conv1D%20%7C%20Seq2Seq-purple?style=flat-square)
+![Status](https://img.shields.io/badge/Status-Completed-brightgreen?style=flat-square)
 
-The objective is to analyze temporal patterns (trend, seasonality, autocorrelation) and build forecasting models to predict future values of the target variable (oil temperature). Both baseline and deep learning approaches are evaluated to understand their effectiveness in real-world forecasting scenarios.
+> **How accurately can deep learning predict electricity transformer temperature — and does model complexity always win?**
+> This project benchmarks 6 forecasting models on 17,000+ hourly readings, showing that **data preparation beats model complexity** every time.
 
-## Dataset Description
+---
 
-Dataset: ETTh1 (Electricity Transformer Temperature)
+## 📌 Project Overview
 
-Source: Public benchmark dataset for time-series forecasting
+This project applies time-series analysis and deep learning to forecast oil temperature in electricity transformers using the **ETTh1 benchmark dataset** — a real-world multivariate energy dataset with trend, seasonality, and non-stationarity challenges.
 
-Frequency: Hourly
+Six models were built and compared — from a Naïve Baseline to a Seq2Seq Encoder-Decoder — with a key focus on proper temporal validation, stationarity handling, and multi-step forecasting. The results challenge a common assumption: **more complex models don't automatically win**.
 
-Rows: ~17,000+
+---
 
-## Features:
+## 📂 Repository Structure
 
-Oil temperature (target variable)
+```
+Time_series_forecasting_with_RNNs/
+│
+├── Time_series_forecasting_with_RNNs.ipynb   # Full notebook: EDA, modeling, evaluation
+├── dataset.png                                # Dataset overview visualization
+├── Trend.png                                  # Trend & seasonality decomposition
+├── First_20_days_of_OT.png                    # Target variable: first 20 days of oil temp
+├── Predicted_vs_true_values.png               # Actual vs predicted comparison
+├── Final_comparison_of_models.png             # Side-by-side model performance chart
+├── training_and_validation_loss_lstm.png      # LSTM training/validation loss curves
+└── README.md
+```
 
-Multiple load and environmental sensor readings
+---
 
-Type: Multivariate time series
+## 📊 Dataset
 
-The dataset exhibits trend, seasonality, and non-stationarity, making it suitable for advanced forecasting techniques.
+| Property | Detail |
+|---|---|
+| **Name** | ETTh1 (Electricity Transformer Temperature) |
+| **Source** | Public benchmark dataset for time-series forecasting |
+| **Frequency** | Hourly |
+| **Size** | ~17,000+ rows |
+| **Target Variable** | Oil Temperature (OT) |
+| **Other Features** | Multiple load and environmental sensor readings |
+| **Characteristics** | Trend, seasonality, non-stationarity |
 
-## Tools & Technologies
+---
 
-Python
+## 🔧 Tech Stack
 
-Pandas, NumPy
+| Area | Tools |
+|---|---|
+| Language | Python 3.8+ |
+| Data Processing | Pandas, NumPy |
+| Visualization | Matplotlib, Seaborn |
+| Deep Learning | TensorFlow, Keras |
+| Environment | Jupyter Notebook |
 
-Matplotlib, Seaborn
+---
 
-TensorFlow / Keras
+## ⚙️ Methodology
 
-Deep Learning (RNNs)
+### 1. Exploratory Data Analysis
+- Visualized long-term trend and seasonal patterns in oil temperature
+- Checked stationarity of the target series (ADF test)
+- Analyzed multivariate correlations between sensor readings
 
-## Methodology
-1. Exploratory Data Analysis
+### 2. Feature Engineering
+- Extracted time-based features (hour, day, month)
+- Applied **cyclical encoding** (sine/cosine transformations) to preserve periodicity
+- Applied **differencing** to address non-stationarity — this was a critical step that significantly improved deep learning model performance
 
-Visualized trends and seasonality
+### 3. Data Splitting
+- Used **time-aware train/validation/test split** — no random shuffling
+- Preserved temporal order to prevent data leakage and ensure realistic evaluation
 
-Checked stationarity of the target series
+---
 
-Analyzed correlations between variables
+## 🤖 Models Implemented
 
-2. Feature Engineering
+| Model | Type | Purpose |
+|---|---|---|
+| **Naïve Baseline** | Statistical | Reference benchmark |
+| **LSTM** | Recurrent Neural Network | Sequential pattern learning |
+| **GRU** | Recurrent Neural Network | Efficient sequence modeling |
+| **Conv1D** | Convolutional Network | Local temporal pattern detection |
+| **Dilated Conv1D** | Convolutional Network | Extended receptive field forecasting |
+| **Seq2Seq Encoder–Decoder** | RNN | Multi-step horizon forecasting |
 
-Time-based features
+All models evaluated using **Mean Absolute Error (MAE)**.
 
-Cyclical encoding using sine and cosine transformations
+---
 
-Differencing to improve stationarity
+## 📈 Key Results & Insights
 
-3. Data Splitting
+### 🏆 What Worked
+- After applying differencing to correct non-stationarity, **GRU and Conv1D showed significant accuracy improvements**
+- **Seq2Seq Encoder-Decoder** successfully captured long-horizon patterns for multi-step forecasting
+- The Naïve Baseline established a strong floor — models that couldn't beat it were quickly eliminated
 
-Time-aware split into:
+### ⚠️ Critical Finding
+> **Non-stationarity was the biggest performance bottleneck — not model architecture.**
+> Deep learning models underperformed until differencing was applied. This demonstrates that data preparation and feature engineering matter more than choosing a complex model.
 
-Training
+### 💡 Key Takeaway for Real-World Forecasting
+In energy analytics and operational monitoring, blindly using complex models without addressing stationarity, data leakage, or proper temporal splits produces unreliable forecasts. This project shows the full disciplined workflow required to make deep learning work on real time-series data.
 
-Validation
+---
 
-Test sets
-(No random shuffling to preserve temporal order)
+## 📸 Visualizations
 
-## Models Implemented
+| File | What It Shows |
+|---|---|
+| `dataset.png` | Dataset structure and feature overview |
+| `Trend.png` | Trend & seasonality decomposition of oil temperature |
+| `First_20_days_of_OT.png` | Target variable behavior over first 20 days |
+| `Predicted_vs_true_values.png` | Best model predictions vs actual values |
+| `Final_comparison_of_models.png` | MAE comparison across all 6 models |
+| `training_and_validation_loss_lstm.png` | LSTM learning curve — training vs validation loss |
 
-Naïve Baseline Model
+---
 
-LSTM (Long Short-Term Memory)
+## 🌍 Real-World Applications
 
-GRU (Gated Recurrent Unit)
+The techniques used in this project are directly applicable to:
+- **Energy demand forecasting** — predict load and consumption patterns
+- **Predictive maintenance** — detect anomalies in transformer temperature before failure
+- **Operational monitoring** — real-time forecasting for grid management systems
+- **Any multivariate time-series domain** — finance, supply chain, weather
 
-Conv1D
+---
 
-Dilated Conv1D
+## 🚀 How to Run
 
-Seq2Seq Encoder–Decoder (Multi-step forecasting)
+```bash
+# 1. Clone the repo
+git clone https://github.com/AnnBMariyam/<repo-name>.git
+cd <repo-name>
 
-Models were evaluated using Mean Absolute Error (MAE).
+# 2. Install dependencies
+pip install pandas numpy matplotlib seaborn tensorflow jupyter
 
-## Key Results & Insights
+# 3. Run the notebook
+jupyter notebook Time_series_forecasting_with_RNNs.ipynb
+```
 
-Baseline models provided a strong reference and highlighted the importance of proper evaluation.
+---
 
-Non-stationarity negatively impacted deep learning performance until differencing was applied.
+## 👩‍💻 Author
 
-After stationarity adjustments:
-
-GRU and Conv1D models significantly improved forecasting accuracy.
-
-Seq2Seq models successfully captured long-horizon patterns.
-
-Demonstrated that data preparation and baselines are as important as model complexity.
-
-## Visualizations
-
-The project includes:
-
-Time-series plots
-
-Decomposition (trend & seasonality)
-
-Actual vs predicted comparisons
-
-Multi-step forecast visualizations
-
-## Conclusion
-
-This project demonstrates the application of time-series analysis and deep learning models to a real-world forecasting problem. It highlights the importance of:
-
-Baseline comparisons
-
-Proper temporal validation
-
-Feature engineering for stationarity
-
-Model interpretability alongside performance
-
-The techniques used here are directly applicable to energy analytics, demand forecasting, and operational monitoring systems.
+**Ann B Mariyam**
+MS Data Analytics — University of Illinois Springfield
+[LinkedIn](https://www.linkedin.com/in/ann-b-mariyam-a238a7275/) | [GitHub](https://github.com/AnnBMariyam) | annbijumariyam02@gmail.com
