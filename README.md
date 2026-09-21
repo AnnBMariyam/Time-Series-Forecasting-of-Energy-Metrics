@@ -6,8 +6,7 @@
 ![Status](https://img.shields.io/badge/Status-Completed-brightgreen?style=flat-square)
 
 > **How accurately can deep learning predict electricity transformer temperature — and does model complexity always win?**
-> This project benchmarks 6 forecasting models on 17,000+ hourly readings, showing that **data preparation beats model complexity** every time.
-
+> This project benchmarks multiple forecasting approaches on 17,000+ hourly readings and shows how addressing non-stationarity through differencing substantially improved forecasting performance.
 ---
 
 ## 📌 Project Overview
@@ -96,17 +95,34 @@ All models evaluated using **Mean Absolute Error (MAE)**.
 
 ## 📈 Key Results & Insights
 
-### 🏆 What Worked
-- After applying differencing to correct non-stationarity, **GRU and Conv1D showed significant accuracy improvements**
-- **Seq2Seq Encoder-Decoder** successfully captured long-horizon patterns for multi-step forecasting
-- The Naïve Baseline established a strong floor — models that couldn't beat it were quickly eliminated
+### 🏆 Best Final Model
 
-### ⚠️ Critical Finding
-> **Non-stationarity was the biggest performance bottleneck — not model architecture.**
-> Deep learning models underperformed until differencing was applied. This demonstrates that data preparation and feature engineering matter more than choosing a complex model.
+After transforming the non-stationary oil-temperature series using differencing
+and re-evaluating the models, the strongest final model was a:
 
-### 💡 Key Takeaway for Real-World Forecasting
-In energy analytics and operational monitoring, blindly using complex models without addressing stationarity, data leakage, or proper temporal splits produces unreliable forecasts. This project shows the full disciplined workflow required to make deep learning work on real time-series data.
+**Stacked GRU — sequence length 336**
+
+### Differenced-Series Performance
+
+| Model | Validation MAE |
+|---|---:|
+| Baseline (last ΔOT) | 0.78 |
+| Stacked GRU | **0.53** |
+| Conv1D | 0.54 |
+
+On the final test set:
+
+- **Best model MAE:** 0.47
+- **Baseline MAE:** 0.65
+
+The final results show that preprocessing the non-stationary series was an
+important part of improving forecasting performance.
+
+### 🔍 Key Takeaway
+
+Model architecture alone did not determine performance. Addressing
+non-stationarity, preserving temporal order, and using appropriate validation
+were important to obtaining more reliable forecasts.
 
 ---
 
