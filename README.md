@@ -26,6 +26,13 @@ Six models were built and compared — from a Naïve Baseline to a Seq2Seq Encod
 the Stacked GRU achieved the strongest validation performance with
 **MAE 0.53**, compared with **0.78** for the baseline and **0.54** for Conv1D.
 
+### Test-Set Predictions
+
+![Predicted vs True Values](images/Predicted_vs_true_values.png)
+
+The final Stacked GRU predictions follow the overall movement of the
+differenced oil-temperature target on the test set, with a final
+**MAE of 0.47**, compared with **0.65** for the baseline.
 ---
 
 
