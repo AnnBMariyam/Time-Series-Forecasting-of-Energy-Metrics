@@ -6,6 +6,7 @@
 ![Status](https://img.shields.io/badge/Status-Completed-brightgreen?style=flat-square)
 
 > **How accurately can deep learning predict electricity transformer temperature — and does model complexity always win?**
+
 > This project benchmarks multiple forecasting approaches on 17,000+ hourly readings and shows how addressing non-stationarity through differencing substantially improved forecasting performance.
 ---
 
