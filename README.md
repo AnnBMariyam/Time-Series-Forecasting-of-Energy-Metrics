@@ -38,16 +38,22 @@ differenced oil-temperature target on the test set, with a final
 
 ## 📂 Repository Structure
 
-```
-Time_series_forecasting_with_RNNs/
+```text
+Time-Series-Forecasting-of-Energy-Metrics/
 │
-├── Time_series_forecasting_with_RNNs.ipynb   # Full notebook: EDA, modeling, evaluation
-├── dataset.png                                # Dataset overview visualization
-├── Trend.png                                  # Trend & seasonality decomposition
-├── First_20_days_of_OT.png                    # Target variable: first 20 days of oil temp
-├── Predicted_vs_true_values.png               # Actual vs predicted comparison
-├── Final_comparison_of_models.png             # Side-by-side model performance chart
-├── training_and_validation_loss_lstm.png      # LSTM training/validation loss curves
+├── dataset/
+│   └── ETTh1-2.csv
+│
+├── images/
+│   ├── Final_differenced_model_comparison.png
+│   ├── Predicted_vs_true_values.png
+│   ├── Trend.png
+│   ├── First_20_days_of_OT.png
+│   └── training_and_validation_loss_lstm.png
+│
+├── notebook/
+│   └── Time_series_forecasting_with_RNNs.ipynb
+│
 └── README.md
 ```
 
@@ -171,15 +177,15 @@ The techniques used in this project are directly applicable to:
 ## 🚀 How to Run
 
 ```bash
-# 1. Clone the repo
-git clone https://github.com/AnnBMariyam/<repo-name>.git
-cd <repo-name>
+# 1. Clone the repository
+git clone https://github.com/AnnBMariyam/Time-Series-Forecasting-of-Energy-Metrics.git
+cd Time-Series-Forecasting-of-Energy-Metrics
 
 # 2. Install dependencies
 pip install pandas numpy matplotlib seaborn tensorflow jupyter
 
-# 3. Run the notebook
-jupyter notebook Time_series_forecasting_with_RNNs.ipynb
+# 3. Open the notebook
+jupyter notebook notebook/Time_series_forecasting_with_RNNs.ipynb
 ```
 
 ---
