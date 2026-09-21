@@ -20,7 +20,7 @@ Six models were built and compared — from a Naïve Baseline to a Seq2Seq Encod
 
 ## 📊 Final Model Comparison
 
-![Differenced-Series Model Comparison](images/Final_differenced_model_comparison.png)
+![Differenced-Series Model Comparison](images/Final_comparison_of__models.png)
 
 **Result:** After differencing the non-stationary oil-temperature series,
 the Stacked GRU achieved the strongest validation performance with
